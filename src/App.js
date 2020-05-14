@@ -31,7 +31,27 @@ class App extends Component {
         })
     };
 
+    // This handler is invoked on text input 'onChange' event. It grabs the value of the text input.
+    nameChangedHandler = (event) => {
+        this.setState({
+            persons: [
+                { name: 'Charlie', age: 25 },
+                { name: event.target.value, age: 28 },
+                { name: 'Amy', age: 27 }
+            ]
+        })
+    };
+
     render() {
+        const style = {
+            padding: '0.5rem',
+            border: '1px solid green',
+            borderRadius: '4px',
+            backgroundColor: '#DDD',
+            font: 'inherit',
+            cursor: 'pointer'
+        };
+
         return (
             // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
             <div className="App">
@@ -39,7 +59,8 @@ class App extends Component {
 
                 {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
                 argument to the switchNameHandler function */}
-                <button onClick={this.switchNameHandler.bind(this, 'Charles')}>Switch Name</button>
+                <button style={style}
+                        onClick={this.switchNameHandler.bind(this, 'Charles')}>Switch Name</button>
 
                 {/* Importing the 'Person' component using custom 'props' on each i.e. 'name' and 'age' */}
                 {/* 'Props' are how we pass data down into the component. Changes in these props can trigger a UI update */}
@@ -58,7 +79,8 @@ class App extends Component {
                     While we wouldn't ordinarily 'call' the function in the prop, when using an arrow function, it
                     implicitly adds a 'return' before the function body. Hence, the function wont actually get called
                     until a click is registered. */
-                    click={() => this.switchNameHandler('Maximillian!!')}>My hobbies: Riding my motorbike</Person>
+                    click={() => this.switchNameHandler('Maximillian!!')}
+                    changed={this.nameChangedHandler}>My hobbies: Riding my motorbike</Person>
 
                 <Person
                     name={this.state.persons[2].name}
