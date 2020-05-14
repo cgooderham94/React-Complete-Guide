@@ -9,11 +9,11 @@ const person = (props) => {
     //  Using the curly braces, we can evaluate single line expressions.
     return (
         <div>
-            <p>I'm a {props.name} and I am {props.age} years old!.</p>
+            <p onClick={props.click}>I'm a {props.name} and I am {props.age} years old!.</p>
 
             {/* Children is a reserved word. It outputs any elements passed in between the opening and closing tags
             of the component usage */}
-            <p>{props.children}</p>
+            <p onClick={props.click}>{props.children}</p>
         </div>
     )
 };

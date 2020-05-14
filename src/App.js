@@ -18,13 +18,13 @@ class App extends Component {
     };
 
     // Handler convention is useful here to denote that this method is not being actively called, but rather, on an event.
-    switchNameHandler = () => {
+    switchNameHandler = (newName) => {
         // DONT DO THIS -> this.state.persons[0].name = "Charles";
 
         // setState is a special method that allows the state object to be updated, and where possible, merges data.
         this.setState({
             persons: [
-                { name: 'Charles', age: 25 },
+                { name: newName, age: 25 },
                 { name: 'Max', age: 28 },
                 { name: 'Amy', age: 27 }
             ]
@@ -37,13 +37,32 @@ class App extends Component {
             <div className="App">
                 <h1>Hi, I'm a React app.</h1>
 
-                <button onClick={this.switchNameHandler}>Switch Name</button>
+                {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
+                argument to the switchNameHandler function */}
+                <button onClick={this.switchNameHandler.bind(this, 'Charles')}>Switch Name</button>
 
                 {/* Importing the 'Person' component using custom 'props' on each i.e. 'name' and 'age' */}
                 {/* 'Props' are how we pass data down into the component. Changes in these props can trigger a UI update */}
-                <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
-                <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >My hobbies: Riding my motorbike</Person>
-                <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+                <Person
+                    name={this.state.persons[0].name}
+                    age={this.state.persons[0].age} />
+
+                {/* It is possible to pass a method down into a component by setting it as a prop. This is a common pattern
+                 in react apps and allows the component to still alter state, without being 'stateful' itself. */}
+                <Person
+                    name={this.state.persons[1].name}
+                    age={this.state.persons[1].age}
+
+                    /* This is an alternative to binding the context to the switchNameHandler function. Be aware,
+                    though, it's not as performant so use it wisely (React can sometimes re-render things too often.
+                    While we wouldn't ordinarily 'call' the function in the prop, when using an arrow function, it
+                    implicitly adds a 'return' before the function body. Hence, the function wont actually get called
+                    until a click is registered. */
+                    click={() => this.switchNameHandler('Maximillian!!')}>My hobbies: Riding my motorbike</Person>
+
+                <Person
+                    name={this.state.persons[2].name}
+                    age={this.state.persons[2].age} />
             </div>
         );
 
