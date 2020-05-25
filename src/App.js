@@ -59,6 +59,38 @@ class App extends Component {
             cursor: 'pointer'
         };
 
+        let persons = null;
+
+        if (this.state.showPersons) {
+            persons = (
+                <div>
+                    {/* Importing the 'Person' component using custom 'props' on each i.e. 'name' and 'age' */}
+                    {/* 'Props' are how we pass data down into the component. Changes in these props can trigger a UI update */}
+                    <Person
+                        name={this.state.persons[0].name}
+                        age={this.state.persons[0].age} />
+
+                    {/* It is possible to pass a method down into a component by setting it as a prop. This is a common pattern
+                        in react apps and allows the component to still alter state, without being 'stateful' itself. */}
+                    <Person
+                        name={this.state.persons[1].name}
+                        age={this.state.persons[1].age}
+
+                        /* This is an alternative to binding the context to the switchNameHandler function. Be aware,
+                        though, it's not as performant so use it wisely (React can sometimes re-render things too often.
+                        While we wouldn't ordinarily 'call' the function in the prop, when using an arrow function, it
+                        implicitly adds a 'return' before the function body. Hence, the function wont actually get called
+                        until a click is registered. */
+                        click={() => this.switchNameHandler('Maximillian!!')}
+                        changed={this.nameChangedHandler}>My hobbies: Riding my motorbike</Person>
+
+                    <Person
+                        name={this.state.persons[2].name}
+                        age={this.state.persons[2].age} />
+                </div>
+            )
+        }
+
         return (
             // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
             <div className="App">
@@ -69,34 +101,9 @@ class App extends Component {
                 <button style={style}
                         onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
-                {/* React doesn't have directives like Vue (v-if). Instead, we use a simple because evaluation to render */}
-                { this.state.showPersons === true ?
-                    <div>
-                        {/* Importing the 'Person' component using custom 'props' on each i.e. 'name' and 'age' */}
-                        {/* 'Props' are how we pass data down into the component. Changes in these props can trigger a UI update */}
-                        <Person
-                            name={this.state.persons[0].name}
-                            age={this.state.persons[0].age} />
-
-                        {/* It is possible to pass a method down into a component by setting it as a prop. This is a common pattern
-                        in react apps and allows the component to still alter state, without being 'stateful' itself. */}
-                        <Person
-                            name={this.state.persons[1].name}
-                            age={this.state.persons[1].age}
-
-                            /* This is an alternative to binding the context to the switchNameHandler function. Be aware,
-                            though, it's not as performant so use it wisely (React can sometimes re-render things too often.
-                            While we wouldn't ordinarily 'call' the function in the prop, when using an arrow function, it
-                            implicitly adds a 'return' before the function body. Hence, the function wont actually get called
-                            until a click is registered. */
-                            click={() => this.switchNameHandler('Maximillian!!')}
-                            changed={this.nameChangedHandler}>My hobbies: Riding my motorbike</Person>
-
-                        <Person
-                            name={this.state.persons[2].name}
-                            age={this.state.persons[2].age} />
-                    </div> : null
-                }
+                { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
+                this class clean and readable. */ }
+                {persons}
             </div>
         );
 
