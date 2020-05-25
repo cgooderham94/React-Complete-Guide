@@ -64,29 +64,14 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    {/* Importing the 'Person' component using custom 'props' on each i.e. 'name' and 'age' */}
-                    {/* 'Props' are how we pass data down into the component. Changes in these props can trigger a UI update */}
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age} />
-
-                    {/* It is possible to pass a method down into a component by setting it as a prop. This is a common pattern
-                        in react apps and allows the component to still alter state, without being 'stateful' itself. */}
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-
-                        /* This is an alternative to binding the context to the switchNameHandler function. Be aware,
-                        though, it's not as performant so use it wisely (React can sometimes re-render things too often.
-                        While we wouldn't ordinarily 'call' the function in the prop, when using an arrow function, it
-                        implicitly adds a 'return' before the function body. Hence, the function wont actually get called
-                        until a click is registered. */
-                        click={() => this.switchNameHandler('Maximillian!!')}
-                        changed={this.nameChangedHandler}>My hobbies: Riding my motorbike</Person>
-
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age} />
+                    {/* The 'map' method maps array items from one array to another, in this case, an array of <Person />
+                     JSX snippets */}
+                    {this.state.persons.map(person => {
+                        return (
+                            <Person name={person.name}
+                                    age={person.age}/>
+                        )
+                    })}
                 </div>
             )
         }
