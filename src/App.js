@@ -18,20 +18,6 @@ class App extends Component {
         showPersons: false
     };
 
-    // Handler convention is useful here to denote that this method is not being actively called, but rather, on an event.
-    switchNameHandler = (newName) => {
-        // DONT DO THIS -> this.state.persons[0].name = "Charles";
-
-        // setState is a special method that allows the state object to be updated, and where possible, merges data.
-        this.setState({
-            persons: [
-                { name: newName, age: 25 },
-                { name: 'Max', age: 28 },
-                { name: 'Amy', age: 27 }
-            ]
-        })
-    };
-
     // This handler is invoked on text input 'onChange' event. It grabs the value of the text input.
     nameChangedHandler = (event) => {
         this.setState({
@@ -46,7 +32,12 @@ class App extends Component {
     togglePersonsHandler = () => {
         const doesShow = this.state.showPersons;
         this.setState({showPersons: !doesShow});
-        console.log("hello!")
+    };
+
+    deletePersonHandler = (personIndex) => {
+        const persons = this.state.persons;
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
     };
 
     render() {
@@ -66,10 +57,11 @@ class App extends Component {
                 <div>
                     {/* The 'map' method maps array items from one array to another, in this case, an array of <Person />
                      JSX snippets */}
-                    {this.state.persons.map(person => {
+                    {this.state.persons.map((person, index) => {
                         return (
                             <Person name={person.name}
-                                    age={person.age}/>
+                                    age={person.age}
+                                    click={() => this.deletePersonHandler(index)} />
                         )
                     })}
                 </div>
