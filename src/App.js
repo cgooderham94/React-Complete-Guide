@@ -35,7 +35,11 @@ class App extends Component {
     };
 
     deletePersonHandler = (personIndex) => {
-        const persons = this.state.persons;
+        // This sets a reference to React's original array of persons. It is highly recommended not to manipulate
+        // original data, but rather a copy of the data (shown under the bad example). Splicing without arguments simply
+        // creates a duplicate array.
+        // const persons = this.state.persons;
+        const persons = this.state.persons.splice();
         persons.splice(personIndex, 1);
         this.setState({persons: persons});
     };
