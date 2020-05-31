@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // Importing the useState hook for 'function' based components
 // import React, { useState } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -10,28 +11,37 @@ class App extends Component {
     // throughout lots of components in your app.
     state = {
         persons: [
-            { name: 'Charlie', age: 25 },
-            { name: 'Max', age: 28 },
-            { name: 'Amy', age: 24 }
+            { id: 'asdikh', name: 'Charlie', age: 25 },
+            { id: 'asf', name: 'Max', age: 28 },
+            { id: 'asgtqw', name: 'Amy', age: 24 }
         ],
         otherState: 'Some other value',
         showPersons: false
     };
 
     // This handler is invoked on text input 'onChange' event. It grabs the value of the text input.
-    nameChangedHandler = (event) => {
-        this.setState({
-            persons: [
-                { name: 'Charlie', age: 25 },
-                { name: event.target.value, age: 28 },
-                { name: 'Amy', age: 27 }
-            ]
-        })
-    };
+    nameChangedHandler = (event, id) => {
+        /* Find the person who's data is being changed, using their array index */
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
 
-    togglePersonsHandler = () => {
-        const doesShow = this.state.showPersons;
-        this.setState({showPersons: !doesShow});
+        // 'Spread' the person object who's data we've changed into a new object
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+
+        // Set the inputs value as the persons name
+        person.name = event.target.value;
+
+        // Spread the existing persons array into a new one and add the updated persons data
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
+        // Set the state to the new persons array
+        this.setState({
+            persons: persons
+        })
     };
 
     deletePersonHandler = (personIndex) => {
@@ -39,9 +49,14 @@ class App extends Component {
         // original data, but rather a copy of the data (shown under the bad example). Splicing without arguments simply
         // creates a duplicate array.
         // const persons = this.state.persons;
-        const persons = this.state.persons.splice();
+        const persons = [...this.state.persons];
         persons.splice(personIndex, 1);
         this.setState({persons: persons});
+    };
+
+    togglePersonsHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
     };
 
     render() {
@@ -51,7 +66,11 @@ class App extends Component {
             borderRadius: '4px',
             backgroundColor: '#DDD',
             font: 'inherit',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
 
         let persons = null;
@@ -65,17 +84,39 @@ class App extends Component {
                         return (
                             <Person name={person.name}
                                     age={person.age}
-                                    click={() => this.deletePersonHandler(index)} />
+                                    click={() => this.deletePersonHandler(index)}
+                                    key={person.id}
+                                    changed={(event) => this.nameChangedHandler(event, person.id)} />
                         )
                     })}
                 </div>
             )
+
+            // If showPersons is true, apply 'de-toggle' styling to the button
+            style.backgroundColor = 'red';
+            style.color = 'white';
+            style[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black'
+            }
+        }
+
+        let classes = [];
+
+        if(this.state.persons.length <= 2) {
+            classes.push('red');
+        }
+
+        if (this.state.persons.length <= 1) {
+            classes.push('bold');
         }
 
         return (
             // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
             <div className="App">
                 <h1>Hi, I'm a React app.</h1>
+
+                <p className={classes.join(' ')}>It's amazing right? I'm working!</p>
 
                 {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
                 argument to the switchNameHandler function */}
@@ -152,4 +193,4 @@ class App extends Component {
 //     // return(React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React app.')));
 // }
 
-export default App;
+export default Radium(App);
