@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
 import './App.css';
 import Person from './Person/Person';
-
-const StyledButton = styled.button`
-    padding: 0.5rem;
-    border: 1px solid green;
-    border-radius: 4px;
-    background-color: ${props => props.alt ? 'red' : 'green'};
-    font: inherit;
-    cursor: pointer;
-    
-    &:hover {
-        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
-        color: black;
-    }
-`;
 
 class App extends Component {
     // The state property is only available within class-based components that extend the React Component class.
@@ -119,7 +104,7 @@ class App extends Component {
 
                 {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
                 argument to the switchNameHandler function */}
-                <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}>Toggle Persons</StyledButton>
+                <button className='button' onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
                 { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
                 this class clean and readable. */ }
