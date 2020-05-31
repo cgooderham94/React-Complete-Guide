@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
-// Importing the useState hook for 'function' based components
-// import React, { useState } from 'react';
+import styled from 'styled-components'
 import './App.css';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+    padding: 0.5rem;
+    border: 1px solid green;
+    border-radius: 4px;
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    font: inherit;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color: black;
+    }
+`;
 
 class App extends Component {
     // The state property is only available within class-based components that extend the React Component class.
@@ -60,19 +72,6 @@ class App extends Component {
     };
 
     render() {
-        const style = {
-            padding: '0.5rem',
-            border: '1px solid green',
-            borderRadius: '4px',
-            backgroundColor: '#DDD',
-            font: 'inherit',
-            cursor: 'pointer',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
-        };
-
         let persons = null;
 
         if (this.state.showPersons) {
@@ -93,12 +92,12 @@ class App extends Component {
             )
 
             // If showPersons is true, apply 'de-toggle' styling to the button
-            style.backgroundColor = 'red';
-            style.color = 'white';
-            style[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }
+            // style.backgroundColor = 'red';
+            // style.color = 'white';
+            // style[':hover'] = {
+            //     backgroundColor: 'salmon',
+            //     color: 'black'
+            // }
         }
 
         let classes = [];
@@ -112,23 +111,20 @@ class App extends Component {
         }
 
         return (
-            <StyleRoot>
-                {/* Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container. */}
-                <div className="App">
-                    <h1>Hi, I'm a React app.</h1>
+            // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
+            <div className="App">
+                <h1>Hi, I'm a React app.</h1>
 
-                    <p className={classes.join(' ')}>It's amazing right? I'm working!</p>
+                <p className={classes.join(' ')}>It's amazing right? I'm working!</p>
 
-                    {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
-                    argument to the switchNameHandler function */}
-                    <button style={style}
-                            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+                {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
+                argument to the switchNameHandler function */}
+                <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}>Toggle Persons</StyledButton>
 
-                    { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
-                    this class clean and readable. */ }
-                    {persons}
-                </div>
-            </StyleRoot>
+                { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
+                this class clean and readable. */ }
+                {persons}
+            </div>
         );
 
         // This is essentially what the render() call above does using JSX.
@@ -195,4 +191,4 @@ class App extends Component {
 //     // return(React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React app.')));
 // }
 
-export default Radium(App);
+export default App;

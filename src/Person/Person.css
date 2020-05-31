@@ -1,15 +1,15 @@
-.Person {
-    width: 60%;
-    padding: 1rem;
-    margin: 1rem auto;
-    border: 2px solid #CCC;
-    background-color: #EEE;
-    box-shadow: 2px 4px 4px #DDD;
-    text-align: center;
-    transition: 0.2s ease-in-out;
-}
+/*.Person {*/
+/*    width: 60%;*/
+/*    padding: 1rem;*/
+/*    margin: 1rem auto;*/
+/*    border: 2px solid #CCC;*/
+/*    background-color: #EEE;*/
+/*    box-shadow: 2px 4px 4px #DDD;*/
+/*    text-align: center;*/
+/*    transition: 0.2s ease-in-out;*/
+/*}*/
 
-.Person:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 2px 5px 5px #DDD;
-}
+/*.Person:hover {*/
+/*    transform: translate(-1px, -1px);*/
+/*    box-shadow: 2px 5px 5px #DDD;*/
+/*}*/
