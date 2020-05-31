@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -58,6 +58,7 @@ class App extends Component {
 
     render() {
         let persons = null;
+        let btnClass = '';
 
         if (this.state.showPersons) {
             persons = (
@@ -74,37 +75,31 @@ class App extends Component {
                         )
                     })}
                 </div>
-            )
+            );
 
-            // If showPersons is true, apply 'de-toggle' styling to the button
-            // style.backgroundColor = 'red';
-            // style.color = 'white';
-            // style[':hover'] = {
-            //     backgroundColor: 'salmon',
-            //     color: 'black'
-            // }
+            btnClass = classes.Red;
         }
 
-        let classes = [];
+        let assignedClasses = [];
 
         if(this.state.persons.length <= 2) {
-            classes.push('red');
+            assignedClasses.push('red');
         }
 
         if (this.state.persons.length <= 1) {
-            classes.push('bold');
+            assignedClasses.push('bold');
         }
 
         return (
             // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
-            <div className="App">
+            <div className={classes.App}>
                 <h1>Hi, I'm a React app.</h1>
 
-                <p className={classes.join(' ')}>It's amazing right? I'm working!</p>
+                <p className={assignedClasses.join(' ')}>It's amazing right? I'm working!</p>
 
                 {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
                 argument to the switchNameHandler function */}
-                <button className='button' onClick={this.togglePersonsHandler}>Toggle Persons</button>
+                <button className={btnClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
 
                 { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
                 this class clean and readable. */ }
