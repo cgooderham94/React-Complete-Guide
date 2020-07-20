@@ -30,7 +30,7 @@ class Person extends Component {
 
         //  Using the curly braces, we can evaluate single line expressions.
         return (
-            <Aux>
+            <React.Fragment>
                 <p key="I1" onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!.</p>,
 
                 {/* Children is a reserved word. It outputs any elements passed in between the opening and closing tags */}
@@ -41,7 +41,7 @@ class Person extends Component {
                 {/* onChange event added, you now have a two-way binding. This both allows the initial value to be a prop, but */}
                 {/* also allow it to be dynamically updated too. */}
                 <input key="I3" type="text" onChange={this.props.changed} value={this.props.name} />
-            </Aux>
+            </React.Fragment>
         );
     }
 }
