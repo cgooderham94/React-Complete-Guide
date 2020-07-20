@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import classes from './Cockpit.css';
 
-const cockpit = (props) => {
+const cockpit = props => {
     // useEffect combines componentDidMount and componentDidUpdate together in one React Hook.
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
@@ -37,11 +37,11 @@ const cockpit = (props) => {
         btnClass = classes.Red;
     }
 
-    if(props.persons.length <= 2) {
+    if(props.personsLength <= 2) {
         assignedClasses.push('red');
     }
 
-    if (props.persons.length <= 1) {
+    if (props.personsLength <= 1) {
         assignedClasses.push('bold');
     }
 
@@ -58,4 +58,5 @@ const cockpit = (props) => {
     );
 }
 
-export default cockpit;
+// React.memo() 'memoizes' the cockpit component and only updates if it's props change. Useful for functional components.
+export default React.memo(cockpit);

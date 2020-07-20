@@ -111,7 +111,7 @@ class App extends Component {
                 { this.state.showCockpit ? <Cockpit
                     title={this.props.appTitle}
                     showPersons={this.state.showPersons}
-                    persons={this.state.persons}
+                    personsLength={this.state.persons.length}
                     clicked={this.togglePersonsHandler}/> : null }
 
                 { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
