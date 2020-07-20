@@ -9,7 +9,7 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud!');
         }, 1000)
-    }, [props.persons]);
+    }, []);
 
     // It's possible to have as many useEffect function calls as desired.
     // useEffect();
