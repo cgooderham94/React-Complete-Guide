@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
-
     // useEffect combines componentDidMount and componentDidUpdate together in one React Hook.
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
@@ -10,7 +9,10 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud!');
         }, 1000)
-    })
+    }, [props.persons]);
+
+    // It's possible to have as many useEffect function calls as desired.
+    // useEffect();
 
     const assignedClasses = [];
     let btnClass = '';
