@@ -9,10 +9,26 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud!');
         }, 1000)
+
+        /* This cleanup work gets executed when the component is destroyed (or when data changes if data is added to
+        the array), as a result of the empty array as the second argument in the useEffect call */
+        return () => {
+            console.log('[Cockpit.js] Cleanup work in useEffect');
+        };
     }, []);
 
-    // It's possible to have as many useEffect function calls as desired.
-    // useEffect();
+    useEffect(() => {
+        console.log('[Cockpit.js] 2nd useEffect');
+
+        /* This cleanup work gets executed on every update cycle, as a result of no second argument in
+        the useEffect call */
+        return () => {
+            console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+        }
+    });
+
+    /* It's possible to have as many useEffect function calls as desired.
+    useEffect(); */
 
     const assignedClasses = [];
     let btnClass = '';

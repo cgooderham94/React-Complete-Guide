@@ -20,7 +20,8 @@ class App extends Component {
             { id: 'asgtqw', name: 'Amy', age: 24 }
         ],
         otherState: 'Some other value',
-        showPersons: false
+        showPersons: false,
+        showCockpit: true
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -101,10 +102,17 @@ class App extends Component {
         return (
             // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
             <div className={classes.App}>
-                <Cockpit title={this.props.appTitle}
-                         showPersons={this.state.showPersons}
-                         persons={this.state.persons}
-                         clicked={this.togglePersonsHandler}/>
+                <button
+                    onClick={() => {
+                        this.setState({showCockpit: false})
+                    }}>
+                    Remove Cockpit
+                </button>
+                { this.state.showCockpit ? <Cockpit
+                    title={this.props.appTitle}
+                    showPersons={this.state.showPersons}
+                    persons={this.state.persons}
+                    clicked={this.togglePersonsHandler}/> : null }
 
                 { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
                 this class clean and readable. */ }
