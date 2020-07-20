@@ -36,6 +36,15 @@ class App extends Component {
         console.log('[App.js] componentDidMount');
     }
 
+    shouldComponentUpdate() {
+        console.log('[App.js] shouldComponentUpdate');
+        return true;
+    }
+
+    componentDidUpdate() {
+        console.log('[App.js] componentDidUpdate');
+    }
+
     // This handler is invoked on text input 'onChange' event. It grabs the value of the text input.
     nameChangedHandler = (event, id) => {
         /* Find the person who's data is being changed, using their array index */
