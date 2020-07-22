@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 
-import Cockpit from '../components/Cockpit/Cockpit'
+import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
+import WithClass from '../hoc/WithClass';
 
 class App extends Component {
     constructor(props) {
@@ -101,7 +102,7 @@ class App extends Component {
 
         return (
             // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
-            <div className={classes.App}>
+            <WithClass classes={classes.App}>
                 <button
                     onClick={() => {
                         this.setState({showCockpit: false})
@@ -117,7 +118,7 @@ class App extends Component {
                 { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
                 this class clean and readable. */ }
                 {persons}
-            </div>
+            </WithClass>
         );
 
         // This is essentially what the render() call above does using JSX.
