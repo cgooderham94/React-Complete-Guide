@@ -23,7 +23,8 @@ class App extends Component {
         ],
         otherState: 'Some other value',
         showPersons: false,
-        showCockpit: true
+        showCockpit: true,
+        changedCounter: 0,
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -68,8 +69,14 @@ class App extends Component {
         persons[personIndex] = person;
 
         // Set the state to the new persons array
-        this.setState({
-            persons: persons
+        this.setState((prevState, props) => {
+            return {
+                persons: persons,
+                // This is not a reliable way updating the state, because there's no guarantee the state will update
+                // straight away, or, be affected by a setState() elsewhere.
+                // changedCounter: this.state.changedCounter + 1
+                changedCounter: prevState.changedCounter + 1
+            }
         })
     };
 
