@@ -3,7 +3,8 @@ import classes from './App.css';
 
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
-import WithClass from '../hoc/WithClass';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux'
 
 class App extends Component {
     constructor(props) {
@@ -101,8 +102,7 @@ class App extends Component {
         }
 
         return (
-            // Here, we shouldn't try to render adjacent elements. JSX is built to render elements with a single container.
-            <WithClass classes={classes.App}>
+            <Aux>
                 <button
                     onClick={() => {
                         this.setState({showCockpit: false})
@@ -118,7 +118,7 @@ class App extends Component {
                 { /* This is a much cleaner and tidier way of outputting conditional content. It keeps the core return of
                 this class clean and readable. */ }
                 {persons}
-            </WithClass>
+            </Aux>
         );
 
         // This is essentially what the render() call above does using JSX.
@@ -126,4 +126,6 @@ class App extends Component {
     }
 }
 
-export default App;
+/* This way of wrapping a component in a higher order component ('withClass') is best used where you want to add
+*logic*, not JSX. Otherwise, best to wrap the markup using a JSX component. */
+export default withClass(App, classes.App);
