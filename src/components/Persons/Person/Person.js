@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 
 import Aux from '../../../hoc/Aux';
 import classes from './Person.css'
+import PropTypes from 'prop-types';
+
 import withClass from '../../../hoc/withClass'
 
 /* This is an example of a 'stateless' component as it only outputs external data. It's good to use as many stateless
@@ -31,5 +33,12 @@ class Person extends Component {
         );
     }
 }
+
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+};
 
 export default withClass(Person, classes.Person);
