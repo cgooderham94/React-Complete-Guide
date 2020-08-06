@@ -55,6 +55,8 @@ const cockpit = props => {
             {/* This is binding the context of the class 'App' to the function. It also passes 'Charles' as an
                     argument to the switchNameHandler function */}
             <button ref={toggleButtonRef} className={btnClass} onClick={props.clicked}>Toggle Persons</button>
+
+            <button onClick={props.login}>Log in</button>
         </div>
     );
 }

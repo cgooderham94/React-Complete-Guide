@@ -32,6 +32,8 @@ class Person extends Component {
             /* React.Fragment is build into React from 16.2 onwards, removing the need for a custom Aux component where
             no single top level element is required. */
             <Fragment>
+                {this.props.isAuth ? <p>Authenticated!</p> : <p>Please log in</p>}
+
                 <p key="I1" onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!.</p>
 
                 {/* Children is a reserved word. It outputs any elements passed in between the opening and closing tags */}
