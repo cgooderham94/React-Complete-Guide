@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 
 import Aux from '../../../hoc/Aux';
-import classes from './Person.css'
+import classes from './Person.css';
 import PropTypes from 'prop-types';
 
-import withClass from '../../../hoc/withClass'
+import withClass from '../../../hoc/withClass';
+import AuthContext from '../../../context/auth-context';
 
 /* This is an example of a 'stateless' component as it only outputs external data. It's good to use as many stateless
 components as possible. Keeping a minimal amount of 'stateful' components makes the app much easier to maintain and
@@ -32,7 +33,9 @@ class Person extends Component {
             /* React.Fragment is build into React from 16.2 onwards, removing the need for a custom Aux component where
             no single top level element is required. */
             <Fragment>
-                {this.props.isAuth ? <p>Authenticated!</p> : <p>Please log in</p>}
+                <AuthContext.Consumer>
+                    {(context) => context.authenticated ? <p>Authenticated!</p> : <p>Please log in</p>}
+                </AuthContext.Consumer>
 
                 <p key="I1" onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!.</p>
 
