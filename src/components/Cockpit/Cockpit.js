@@ -5,11 +5,7 @@ const cockpit = props => {
     // useEffect combines componentDidMount and componentDidUpdate together in one React Hook.
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
-        // HTTP request...
-        setTimeout(() => {
-            alert('Saved data to cloud!');
-        }, 1000)
-
+        
         /* This cleanup work gets executed when the component is destroyed (or when data changes if data is added to
         the array), as a result of the empty array as the second argument in the useEffect call */
         return () => {

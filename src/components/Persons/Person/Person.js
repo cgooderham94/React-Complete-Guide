@@ -11,6 +11,19 @@ components as possible. Keeping a minimal amount of 'stateful' components makes 
 keeps a clear flow of data from the 'stateful' container component, down to the 'stateless' presentational component. */
 
 class Person extends Component {
+    // This is the more modern way of setting a reference on a class based component.
+    constructor(props) {
+        // Must always use the super function.
+        super(props);
+        this.inputElementRef = React.createRef();
+    }
+
+    componentDidMount() {
+        // this.inputElement.focus();
+
+        this.inputElementRef.current.focus();
+    }
+
     render() {
         console.log('[Person.js] rendering...')
 
@@ -28,7 +41,13 @@ class Person extends Component {
                 {/* Without the value attribute here, you'd force the component into being 'read-only'. However, with the */}
                 {/* onChange event added, you now have a two-way binding. This both allows the initial value to be a prop, but */}
                 {/* also allow it to be dynamically updated too. */}
-                <input key="I3" type="text" onChange={this.props.changed} value={this.props.name} />
+                <input key="I3"
+                       // This is the older way of setting a ref
+                       // ref={(inputEl) => {this.inputElement = inputEl}}
+                       ref={this.inputElementRef}
+                       type="text"
+                       onChange={this.props.changed}
+                       value={this.props.name} />
             </Fragment>
         );
     }
